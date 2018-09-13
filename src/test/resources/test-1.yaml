@@ -1,0 +1,121 @@
+initGroup:
+  variables:
+    content-type: application/json
+    uuid: null
+dataGroup:
+  constants:
+    foo: |
+      {
+        "foo": [
+                 "v1",
+                 "v2"
+               ]
+      }
+testTemplateGroup:
+  templates:
+  - name: sampleTestTemplate
+    request:
+      uri: /get?foo=v1&foo=v2
+      method: get
+      headers:
+        content-type: ${content-type}
+        uuid: uuid-1
+    response:
+      status: 200
+      body:
+        asserts:
+        - jsonPath: args.foo
+          value: ${args_foo_value}
+testGroup:
+- name: test group to show uri, method, parameters, headers and cookies usages
+  tests:
+  - name: simple test 1
+    request:
+      uri: /get
+      method: get
+      parameters:
+        foo: foo1
+        baz: baz1
+      headers:
+        content-type: ${content-type}
+        uuid: uuid-1
+      cookies:
+        cookie1: kookie2
+        cookie2: kookie3
+      body: |
+        {"a":"b"  "c":"d"}
+    response:
+      status: 201
+      headers:
+        content-type: application/json
+  - template: sampleTestTemplate
+    tags:
+    - template
+    arguments:
+      args_foo_value: '["v1","v2"]'
+- name: test group to show to show how to test body asserts
+  tags:
+  - bodyAssert
+  tests:
+  - name: simple body asset test
+    request:
+      uri: /get?foo=v1&foo=v2
+      method: get
+      encodeURL: false
+      headers:
+        content-type: application/json
+        uuid: uuid-1
+    response:
+      status: 200
+      variables:
+        contentType: header.content-type
+        uuid: body.headers.Uuid
+      body:
+        asserts:
+        - jsonPath: args.foo
+          value: '["v1","v2"]'
+        - regex: gzip
+          value: '["gzip"]'
+        - jsonPath: args
+          value: "{\n  \"foo\": [\n           \"v1\",\n           \"v2\"\n       \
+            \  ]\n}          \n"
+        - jsonPath: args
+          value: ${foo}
+        - jsonPath: headers.Host
+          value: httpbin.org
+        - jsonPath: headers.Uuid
+          value: uuid-1
+- name: body assert
+  tags:
+  - bodyAssert
+  tests:
+  - name: pipe
+    tags:
+    - pipe
+    request:
+      uri: /get?foo=vs1&foo=v2
+      method: get
+    response:
+      status: 200
+      body:
+        asserts:
+        - select: jsonpath args | jsonpath foo
+          value: |
+            ["vs1","v2"]
+        - select: jsonpath args | jsonpath foo | regex.find v\d
+          value: '["v2"]'
+        - select: jsonpath args | jsonpath foo | regex.match v\d
+          value: 1
+  - name: json-unit
+    tags:
+    - jsonUnit
+    request:
+      uri: /get?foo=vs1&foo=v2
+      method: get
+    response:
+      status: 200
+      body:
+        asserts:
+        - select: jsonpath $
+          value: '{"origin":"${json-unit.regex}(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))"
+            , "headers":{"Host":"httpbin.org", "Connection":"${json-unit.any-string}"}}'

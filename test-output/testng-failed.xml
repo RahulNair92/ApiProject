@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <listeners>
+    <listener class-name="com.github.rest.yaml.test.ExtentTestNGITestListener"/>
+  </listeners>
+  <test thread-count="5" name="API Tests(failed)">
+    <classes>
+      <class name="com.github.rest.yaml.test.TestClass">
+        <methods>
+          <include name="setTestName"/>
+          <include name="setupTest"/>
+        </methods>
+      </class> <!-- com.github.rest.yaml.test.TestClass -->
+    </classes>
+  </test> <!-- API Tests(failed) -->
+</suite> <!-- Failed suite [Suite] -->

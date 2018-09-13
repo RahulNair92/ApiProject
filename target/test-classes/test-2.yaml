@@ -1,0 +1,14 @@
+- name: test group to show uri, method, parameters, headers and cookies usages
+  tests:
+  - name: simple test 2
+    request:
+      uri: /get
+      method: get
+      parameters:
+        foo: foo1
+        baz: baz1
+    response:
+      status: 200
+      headers:
+        content-type: application/json
+        

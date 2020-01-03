@@ -1,32 +1,16 @@
 package com.github.rest.yaml.test;
 
-import static com.jayway.restassured.RestAssured.given;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DynamicContainer;
-import org.junit.jupiter.api.DynamicNode;
 import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.api.function.Executable;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Factory;
-import org.testng.annotations.Test;
-
 import com.github.rest.yaml.test.beans.YamlDataGroup;
 import com.github.rest.yaml.test.beans.YamlInitGroup;
 import com.github.rest.yaml.test.beans.YamlTest;
 import com.github.rest.yaml.test.beans.YamlTestGroup;
 import com.github.rest.yaml.test.beans.YamlTestTemplateGroup;
-import com.github.rest.yaml.test.certificate.CertificateLoader;
 import com.github.rest.yaml.test.util.Environment;
-import com.jayway.restassured.specification.RequestSpecification;
 
 public class MainTest extends AbstractITest {
 
@@ -51,7 +35,7 @@ public class MainTest extends AbstractITest {
 	}
 
 	@Factory
-	public Object[] tests() throws Exception {
+	public Object[] arraytest() throws Exception {
 		setUp();
 		Collection<DynamicTest> dynamicTests = new ArrayList<DynamicTest>();
 		Collection<DynamicTest> tests = new ArrayList<DynamicTest>();

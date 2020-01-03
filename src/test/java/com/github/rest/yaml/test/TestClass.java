@@ -1,16 +1,10 @@
 package com.github.rest.yaml.test;
 import static com.jayway.restassured.RestAssured.given;
 
-import java.lang.reflect.Method;
-
-import org.junit.jupiter.api.function.Executable;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.github.rest.yaml.test.CurrentState;
-import com.github.rest.yaml.test.MainTest;
 import com.github.rest.yaml.test.RestRequest;
 import com.github.rest.yaml.test.beans.YamlDataGroup;
 import com.github.rest.yaml.test.beans.YamlInitGroup;
@@ -51,7 +45,7 @@ public class TestClass extends AbstractITest{
 
 
 	@Test
-		private void setupTest() {
+		public void setupTest() {
 
 			RequestSpecification rs = given().spec(rspec);
 

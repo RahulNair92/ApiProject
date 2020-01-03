@@ -1,70 +1,10 @@
-initGroup:
-  variables:
-    content-type: application/json
-    uuid: null
-                
-dataGroup:
-  constants:
-    foo: |
-            {
-              "foo": [
-                       "v1",
-                       "v2"
-                     ]
-            }
 
-
-testTemplateGroup:
-  templates:
-  - name: sampleTestTemplate
-    request:
-      uri: /get?foo=v1&foo=v2
-      method: get
-      headers:
-        content-type: ${content-type}
-        uuid: uuid-1
-    response:
-      status: 200
-      body:
-        asserts:
-        - jsonPath: args.foo
-          value: ${args_foo_value}
-
-        
-testGroup:
-- name: List of Sample APIs to Test
+- name: List of Sample APIs to Test(sample)
   tests:
-  - name: Get list of all users
+  - name: Get list of all users(sample)
     request:
       uri: /api/users
       method: get
-      parameters:
-        page: 2
     response:
-      status: 200
-      body:
-        asserts:
-        - jsonPath: page
-          value: 2
-        - jsonPath: data
-          value: |
-                 '[{
-                     "id": 4,
-                        "first_name": "Eve",
-                        "last_name": "Holt",
-                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"
-                          },
-                          {
-                           "id": 5,
-                        "first_name": "Charles",
-                        "last_name": "Morris",
-                     "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/stephenmoon/128.jpg"
-                          },
-                       {
-                        "id": 6,
-                              "first_name": "Tracey",
-                           "last_name": "Ramos",
-                           "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/bigmancho/128.jpg"
-                          }
-                         ]'
-        
+      status: 404
+      

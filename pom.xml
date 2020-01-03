@@ -17,7 +17,7 @@
 		<skipUTs>false</skipUTs>
 		<surefire-plugin.version>2.19</surefire-plugin.version>
 		<jackson.version>2.9.0</jackson.version>
-		<junit-jupiter.version>5.0.2</junit-jupiter.version>
+		<junit-jupiter.version>5.2.0</junit-jupiter.version>
 	</properties>
 
 	<developers>
@@ -47,6 +47,7 @@
 			<version>6.14.3</version>
 			<scope>test</scope>
 		</dependency>
+		
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -150,8 +151,29 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire-plugin.version}</version>
-				<dependencies>
-					<dependency>
+				 <configuration>
+                    <!-- Suite testng xml file to consider for test execution -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    
+            <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>6.14.3</version>
+    <scope>test</scope>
+</dependency>
+
+                </configuration>
+                <dependencies>
+                <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-testng</artifactId>
+            <version>3.0.0-M4</version>
+          </dependency>
+ 
+					<!-- <dependency>
 						<groupId>org.junit.platform</groupId>
 						<artifactId>junit-platform-surefire-provider</artifactId>
 						<version>1.0.2</version>
@@ -160,10 +182,10 @@
 						<groupId>org.junit.jupiter</groupId>
 						<artifactId>junit-jupiter-engine</artifactId>
 						<version>${junit-jupiter.version}</version>
-					</dependency>
+					</dependency> -->
 				</dependencies>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
@@ -171,7 +193,7 @@
 						<configuration>
 							<tasks>
 								<replace token="tests()" value="com.github.rest.yaml.test.MainTest"
-									dir="target/surefire-reports">
+									dir="target/">
 									<include name="**/*.xml" />
 								</replace>
 							</tasks>
@@ -181,7 +203,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 
 		</plugins>
 	</build>
